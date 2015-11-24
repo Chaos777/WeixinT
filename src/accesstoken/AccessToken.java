@@ -17,5 +17,12 @@ public class AccessToken {
 	public void setExpires_in(String expires_in) {
 		this.expires_in = expires_in;
 	}
+	@Override
+	public String toString() {
+		return "AccessToken [token=" + token + ", expires_in=" + expires_in
+				+ "]";
+	}
+	
+	
 
 }

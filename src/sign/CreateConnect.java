@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.dom4j.DocumentException;
 
+import tool.TodayInHistoryService;
 import util.MessageUtil;
 
 public class CreateConnect extends HttpServlet {
@@ -82,6 +83,10 @@ public class CreateConnect extends HttpServlet {
 				}
 				else if("5".equals(Content)){
 					message = MessageUtil.initVoiceMessage(ToUserName, FromUserName);	//语音消息
+				}
+				else if("today".equals(Content)||"Today".equals(Content)){				//历史上的今天
+					String info = TodayInHistoryService.getTodayInHistoryInfo();
+					message = MessageUtil.initText(ToUserName, FromUserName, info);
 				}
 				else if("?".equals(Content)||"？".equals(Content)){
 					message = MessageUtil.initText(ToUserName, FromUserName, MessageUtil.menuText());	//文字消息

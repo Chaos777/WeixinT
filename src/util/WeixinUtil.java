@@ -6,6 +6,7 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -36,9 +37,10 @@ public class WeixinUtil {
 //	private static final String APPID = "wx3714ce85dfc07c36";	//真实
 	private static final String APPID = "wx61a87fb73a296db6";	//测试
 //	private static final String APPSECRET = "1f8a48a83199931590d74262af136c75";		//真实
-	private static final String APPSECRET = "d4624c36b6795d1d99dcf0547af5443d";		//真实
+	private static final String APPSECRET = "d4624c36b6795d1d99dcf0547af5443d";		//测试
 	
-	private static final String UPLOAD_URL = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE";
+	private static final String UPLOAD_URL = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE";	//临时
+	private static final String UPLOAD_URL_EVER = "https://api.weixin.qq.com/cgi-bin/material/add_material?access_token=ACCESS_TOKEN&type=TYPE";	//永久，除图文素材外
 	
 	private static final String ACCESS_TOHEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 	
@@ -90,7 +92,7 @@ public class WeixinUtil {
 	}
 	
 	/**
-	 * 文件上传
+	 * 文件上传临时
 	 * @param filePath
 	 * @param accessToken
 	 * @param type
@@ -189,6 +191,161 @@ public class WeixinUtil {
 		}
 		String mediaId = jsonObj.getString(typeName);
 		return mediaId;
+	}
+	
+	
+	/**
+	 * 素材上传永久 除图文素材外
+	 * @param filePath
+	 * @param accessToken
+	 * @param type
+	 * @return
+	 * @throws IOException
+	 * @throws NoSuchAlgorithmException
+	 * @throws NoSuchProviderException
+	 * @throws KeyManagementException
+	 */
+	public static String uploadEver(String filePath, String accessToken,String type) throws IOException, NoSuchAlgorithmException, NoSuchProviderException, KeyManagementException {
+		File file = new File(filePath);
+		if (!file.exists() || !file.isFile()) {
+			throw new IOException("文件不存在");
+		}
+
+		String url = UPLOAD_URL_EVER.replace("ACCESS_TOKEN", accessToken).replace("TYPE", type);
+		
+		URL urlObj = new URL(url);
+		//连接
+		HttpURLConnection con = (HttpURLConnection) urlObj.openConnection();
+
+		con.setRequestMethod("POST"); 
+		con.setDoInput(true);
+		con.setDoOutput(true);
+		con.setUseCaches(false); 
+
+		//设置请求头信息
+		con.setRequestProperty("Connection", "Keep-Alive");
+		con.setRequestProperty("Charset", "UTF-8");
+
+		//设置边界
+		String BOUNDARY = "----------" + System.currentTimeMillis();
+		con.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("--");
+		sb.append(BOUNDARY);
+		sb.append("\r\n");
+		sb.append("Content-Disposition: form-data;name=\"media\";filelength=\""+
+					file.length()+"\";filename=\"" + file.getName() + "\"\r\n");
+		sb.append("Content-Type:application/octet-stream\r\n\r\n");
+
+		byte[] head = sb.toString().getBytes("utf-8");
+
+		//获得输出流
+		OutputStream out = new DataOutputStream(con.getOutputStream());
+		//输出表头
+		out.write(head);
+
+		//文件正文部分
+		//把文件已流文件的方式 推入到url中
+		DataInputStream in = new DataInputStream(new FileInputStream(file));
+		int bytes = 0;
+		byte[] bufferOut = new byte[1024];
+		while ((bytes = in.read(bufferOut)) != -1) {
+			out.write(bufferOut, 0, bytes);
+		}
+		in.close();
+
+		//结尾部分
+		byte[] foot = ("\r\n--" + BOUNDARY + "--\r\n").getBytes("utf-8");//定义最后数据分隔线
+
+		out.write(foot);
+
+		out.flush();
+		out.close();
+
+		StringBuffer buffer = new StringBuffer();
+		BufferedReader reader = null;
+		String result = null;
+		try {
+			//定义BufferedReader输入流来读取URL的响应
+			reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				buffer.append(line);
+			}
+			if (result == null) {
+				result = buffer.toString();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (reader != null) {
+				reader.close();
+			}
+		}
+
+		JSONObject jsonObj = JSONObject.fromObject(result);
+		System.out.println(jsonObj);
+		String typeName = "media_id";
+		if(!"image".equals(type)){
+			typeName = type + "_media_id";
+		}
+		if("voice".equals(type)){
+			typeName = "media_id";
+		}
+		String mediaId = jsonObj.getString(typeName);
+		return mediaId;
+	}
+	
+	public static String postFile(String filePath,String accessToken,String type ,String title,String introduction) {
+			File file = new File(filePath);
+			if(!file.exists())
+			return null;
+			String result = null;
+			try {
+				String url = UPLOAD_URL_EVER.replace("ACCESS_TOKEN", accessToken).replace("TYPE", type);
+				URL url1 = new URL(url); 
+				HttpURLConnection conn = (HttpURLConnection) url1.openConnection();
+				conn.setConnectTimeout(5000);
+				conn.setReadTimeout(30000);  
+				            conn.setDoOutput(true);  
+				            conn.setDoInput(true);  
+				            conn.setUseCaches(false);  
+				            conn.setRequestMethod("POST"); 
+				            conn.setRequestProperty("Connection", "Keep-Alive");
+				            conn.setRequestProperty("Cache-Control", "no-cache");
+				            String boundary = "-----------------------------"+System.currentTimeMillis();
+				            conn.setRequestProperty("Content-Type", "multipart/form-data; boundary="+boundary);
+				             
+				OutputStream output = conn.getOutputStream();
+				output.write(("--" + boundary + "\r\n").getBytes());
+				output.write(String.format("Content-Disposition: form-data; name=\"media\"; filename=\"%s\"\r\n", file.getName()).getBytes());  
+				output.write("Content-Type: video/mp4 \r\n\r\n".getBytes());
+				        byte[] data = new byte[1024];
+				        int len =0;
+				        FileInputStream input = new FileInputStream(file);
+				while((len=input.read(data))>-1){
+				output.write(data, 0, len);
+				}
+				output.write(("--" + boundary + "\r\n").getBytes());
+				output.write("Content-Disposition: form-data; name=\"description\";\r\n\r\n".getBytes());
+//				output.write(String.format("{\"title\":\"%s\", \"introduction\":\"%s\"}",title,introduction).getBytes());
+				output.write(("\r\n--" + boundary + "--\r\n\r\n").getBytes());
+				output.flush();
+				output.close();
+				input.close();			
+				InputStream resp = conn.getInputStream();
+				StringBuffer sb = new StringBuffer();
+				while((len= resp.read(data))>-1)
+				sb.append(new String(data,0,len,"utf-8"));
+				resp.close();
+				result = sb.toString();
+				System.out.println(result);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+		return result;
 	}
 	
 	//获取acces_token

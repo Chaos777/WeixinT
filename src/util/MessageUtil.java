@@ -99,6 +99,7 @@ public class MessageUtil {
 		sb.append("3,自己介绍(图片)\n");
 		sb.append("4,音乐\n");
 		sb.append("5,语音\n");
+		sb.append("today,历史上的今天\n\n");
 		sb.append("回复？调出子菜单。");
 		return sb.toString();
 	}
@@ -241,7 +242,7 @@ public class MessageUtil {
 		return xstream.toXML(videoMessage);						
 	}
 	
-	//语音消息组装
+	//视频消息组装
 	public static String initVideoMessage(String ToUserName,String FromUserName){
 		String message = "";
 		Video video = new Video();
