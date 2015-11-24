@@ -14,9 +14,9 @@ public class WeixinTest {
 		System.out.println("Token: "+token.getToken());
 		System.out.println("有效时间: "+token.getExpires_in());
 		
-		String path = "D:/test001.jpg";		//音乐语音图片视频消息是临时上传的，有效期3天，需要重新上传
+		String path = "D:/10.mp3";		//音乐语音图片视频消息是临时上传的，有效期3天，需要重新上传
 		try {
-			String mediaId = WeixinUtil.postFile(path, token.getToken(), "image","title","introduction");
+			String mediaId = WeixinUtil.postFile(path, token.getToken(), "voice","title","introduction");
 			System.out.println(mediaId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
