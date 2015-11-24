@@ -1,13 +1,11 @@
 package util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import accesstoken.AccessToken;
 
 public class TokenThread implements Runnable{
 	
-	private static Logger log = LoggerFactory.getLogger(TokenThread.class);	
+		
 	
 	public static AccessToken token = null;
 	
@@ -17,8 +15,8 @@ public class TokenThread implements Runnable{
 			try{
 				token = WeixinUtil.getAccessToken();
 				if(null != token){
-					log.info("获取token成功");
-					log.info(token.toString());
+					System.out.println("获取token成功");
+					System.out.println(token.toString());
 					Thread.sleep((Integer.valueOf(token.getExpires_in())-200)*1000);
 				}
 				else{
@@ -30,9 +28,9 @@ public class TokenThread implements Runnable{
 				try {
                     Thread.sleep(60 * 1000);
                 } catch (InterruptedException e1) {
-                    log.error("{}", e1);
+                    System.err.println(e1);
                 }
-                log.error("{}", e);
+				System.err.println( e);
 			}
 		}
 	}

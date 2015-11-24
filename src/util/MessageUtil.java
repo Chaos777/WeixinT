@@ -99,8 +99,9 @@ public class MessageUtil {
 		sb.append("3,自己介绍(图片)\n");
 		sb.append("4,音乐\n");
 		sb.append("5,语音\n");
+		sb.append("6,翻译\n");
 		sb.append("today,历史上的今天\n\n");
-		sb.append("回复？调出子菜单。");
+		sb.append("回复？调出菜单。");
 		return sb.toString();
 	}
 	
@@ -113,6 +114,18 @@ public class MessageUtil {
 	public static String secondMenu(){
 		StringBuffer sb = new StringBuffer();
 		sb.append("自己介绍的内容就是这个");		
+		return sb.toString();
+	}
+	
+	public static String threeMenu(){
+		StringBuffer sb = new StringBuffer();
+		sb.append("词组翻译使用指南\n\n");		
+		sb.append("使用实例\n");		
+		sb.append("翻译足球\n");		
+		sb.append("翻译中国足球\n");		
+		sb.append("翻译football\n");	
+		sb.append("翻译さようなら\n\n");
+		sb.append("回复？调出菜单。");
 		return sb.toString();
 	}
 	

@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.dom4j.DocumentException;
 
-import tool.TodayInHistoryService;
+import tool.today.TodayInHistoryService;
+import tool.trans.Translate;
 import util.MessageUtil;
 
 public class CreateConnect extends HttpServlet {
@@ -83,6 +84,15 @@ public class CreateConnect extends HttpServlet {
 				}
 				else if("5".equals(Content)){
 					message = MessageUtil.initVoiceMessage(ToUserName, FromUserName);	//语音消息
+				}
+				else if(Content.startsWith("翻译")){
+					String word = Content.replaceAll("^翻译", "").trim();
+					if("".equals(word)){
+						message = MessageUtil.initText(ToUserName, FromUserName, MessageUtil.threeMenu());
+					}
+					else{
+						message = MessageUtil.initText(ToUserName, FromUserName, Translate.translate(word));
+					}
 				}
 				else if("today".equals(Content)||"Today".equals(Content)){				//历史上的今天
 					String info = TodayInHistoryService.getTodayInHistoryInfo();
