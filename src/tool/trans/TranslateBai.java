@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import sign.Encode;
 import util.WeixinUtil;
 
 import net.sf.json.JSONObject;
@@ -30,9 +31,9 @@ public class TranslateBai {
 		
 		String str1 = APPID+query+RANDOM+KEY;
 		
-		System.out.println(str1);
+//		System.out.println(str1);
 		
-		String sign = MD5(str1);	
+		String sign = Encode.MD5(str1).toLowerCase();	
 		
 		System.out.println(sign);
 		
@@ -46,61 +47,37 @@ public class TranslateBai {
 		
 		JSONObject jsonObject = WeixinUtil.doGetStr(surl.toString());
 		
-		String error_code = jsonObject.getString("error_code");
-		if(error_code == null || !"52000".equals(error_code)){
+		
+		/*if(jsonObject.getString("error_code") == null || !"52000".equals(jsonObject.getString("error_code"))){
 			sb.append("翻译失败");
 		}
-		else{				//success
-			back_info back_info = (back_info) JSONObject.toBean(jsonObject,back_info.class);
+		else{	*/			//success
+		Back_info back_info = (Back_info) JSONObject.toBean(jsonObject,Back_info.class);
 			sb.append("翻译结果为:");
 			sb.append("原文："+back_info.getTrans_result().getSrc()+"\n");
 			sb.append("译文："+back_info.getTrans_result().getDst()+"\n");
-		}
+//		}
 		
 		System.out.println(jsonObject);
 		
 		return sb.toString();
 	}
 	
-	public static String MD5(String s) {
-        char hexDigits[]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};       
-        try {
-            byte[] btInput = s.getBytes();
-            // 获得MD5摘要算法的 MessageDigest 对象
-            MessageDigest mdInst = MessageDigest.getInstance("MD5");
-            // 使用指定的字节更新摘要
-            mdInst.update(btInput);
-            // 获得密文
-            byte[] md = mdInst.digest();
-            // 把密文转换成十六进制的字符串形式
-            int j = md.length;
-            char str[] = new char[j * 2];
-            int k = 0;
-            for (int i = 0; i < j; i++) {
-                byte byte0 = md[i];
-                str[k++] = hexDigits[byte0 >>> 4 & 0xf];
-                str[k++] = hexDigits[byte0 & 0xf];
-            }
-            return new String(str);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-	}
 	
 	
 	
 
 }
 
-class back_info{
+class Back_info{
 	private String from;
 	private String to;
 	private trans_result trans_result;
-	public String getFrom() {
+	
+	public String getfrom() {
 		return from;
 	}
-	public void setFrom(String from) {
+	public void setfrom(String from) {
 		this.from = from;
 	}
 	public String getTo() {

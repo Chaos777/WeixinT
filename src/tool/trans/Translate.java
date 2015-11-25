@@ -16,6 +16,7 @@ public class Translate {
 		String url = "http://openapi.baidu.com/public/2.0/translate/dict/simple?client_id=jNg0LPSBe691Il0CG5MwDupw&q=KEYWORD&from=auto&to=auto";
 		url = url.replace("KEYWORD", URLEncoder.encode(source, "UTF-8"));
 		JSONObject jsonObject = WeixinUtil.doGetStr(url);
+		System.out.println(jsonObject);
 		String errno = jsonObject.getString("errno");
 		Object obj = jsonObject.get("data");
 		StringBuffer dst = new StringBuffer();

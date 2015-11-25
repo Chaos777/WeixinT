@@ -56,6 +56,7 @@ public class CreateConnect extends HttpServlet {
 		try {
 			
 			Map<String, String> map = MessageUtil.xmlToMap(req);
+			System.out.println(map);
 			String ToUserName = map.get("ToUserName");
 			String FromUserName = map.get("FromUserName");
 			String CreateTime = map.get("CreateTime");
@@ -130,7 +131,7 @@ public class CreateConnect extends HttpServlet {
 				}
 				else if(MessageUtil.MESSAGE_SCANCODE.equals(eventTyep)){	//扫码事件
 					String key = map.get("EventKey");
-					System.out.println(key);
+					//System.out.println(key);
 					message = MessageUtil.initText(ToUserName, FromUserName, key);
 				}
 			}
