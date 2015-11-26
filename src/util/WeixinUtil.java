@@ -73,6 +73,28 @@ public class WeixinUtil {
 		return jsonObject;
 	}
 	
+	//get string
+	public static String doGetStr_(String url){
+		DefaultHttpClient httpClient = new DefaultHttpClient();
+		StringBuffer sb = new StringBuffer();
+		HttpGet httpGet = new HttpGet(url);
+		
+		try {
+			HttpResponse response = httpClient.execute(httpGet);
+			HttpEntity entity = response.getEntity();
+			if(entity != null){
+				sb.append(EntityUtils.toString(entity,"utf-8"));				
+			}
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return sb.toString();
+	}
+	
 	
 	//post请求
 	public static JSONObject doPostStr(String url,String outStr){

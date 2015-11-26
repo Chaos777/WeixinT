@@ -14,7 +14,7 @@ public class InitServlet extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1417022156477133421L;
-	public static MemCachedClient client = new MemCachedClient();
+	public static MemCachedClient mclient = new MemCachedClient();
 	
 	 public void init() throws ServletException {
 	      
@@ -36,6 +36,11 @@ public class InitServlet extends HttpServlet {
 			pool.setSocketTO(3000);
 			pool.setAliveCheck(true);
 			pool.initialize();
+			
+/*			for (int i = 0; i < 10; i++) {
+				boolean success = mclient.set("key" + i, "value" + i+1);
+				System.out.println(String.format("set key( %d ): %s", i, success));
+			}*/
 	 }
 	 
 	 public static void main(String args[]){
