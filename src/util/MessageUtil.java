@@ -100,7 +100,7 @@ public class MessageUtil {
 		sb.append("4,音乐\n");
 		sb.append("5,语音\n");
 		sb.append("6,翻译\n");
-		sb.append("today,历史上的今天\n\n");
+		sb.append("7,天气\n\n");
 		sb.append("回复？调出菜单。");
 		return sb.toString();
 	}
@@ -126,6 +126,15 @@ public class MessageUtil {
 		sb.append("翻译football\n");	
 		sb.append("翻译さようなら\n\n");
 		sb.append("回复？调出菜单。");
+		return sb.toString();
+	}
+	
+	public static String fourMenu(){
+		StringBuffer sb = new StringBuffer();
+		sb.append("天气查询使用指南\n\n");
+		sb.append("使用实例\n");
+		sb.append("杭州天气\n");
+		sb.append("北京天气\n");
 		return sb.toString();
 	}
 	

@@ -2,12 +2,6 @@ package tool.weather;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.Map;
-
-import com.alibaba.fastjson.JSON;
-import com.google.gson.Gson;
-
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import sign.Encode;

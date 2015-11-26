@@ -406,9 +406,26 @@ public class WeixinUtil {
 		button32.setType("location_select");
 		button32.setKey("32");
 		
+		ClickButton button33 = new ClickButton();
+		button33.setName("历史上的今天");
+		button33.setType("click");
+		button33.setKey("33");
+		
+		ClickButton button34 = new ClickButton();
+		button34.setName("图灵机器人");
+		button34.setType("click");
+		button34.setKey("34");
+		
+		ClickButton button35 = new ClickButton();
+		button35.setName("小黄鸡");
+		button35.setType("click");
+		button35.setKey("35");		
+		
+		
+		
 		Button button = new Button();
 		button.setName("菜单");
-		button.setSub_button(new Button[]{button31,button32});
+		button.setSub_button(new Button[]{button31,button32,button33,button34,button35});
 		
 		menu.setButton(new Button[]{button11,button21,button});
 		
