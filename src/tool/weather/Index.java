@@ -29,6 +29,11 @@ public class Index {
 	public void setDes(String des) {
 		this.des = des;
 	}
+	@Override
+	public String toString() {
+		return "Index [title=" + title + ", zs=" + zs + ", tipt=" + tipt
+				+ ", des=" + des + "]";
+	}
 	
 	
 

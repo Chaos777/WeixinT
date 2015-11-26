@@ -4,6 +4,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -27,33 +30,18 @@ public class WeatherForcast {
 		String error_code = jsonObject.getString("error");
 		
 		if("0".equals(error_code)&&"success".equalsIgnoreCase(jsonObject.getString("status"))){
+			WeatherResult weatherResult = (WeatherResult) JSONObject.toBean(jsonObject,WeatherResult.class);
+			Results[] results = weatherResult.getResults();
+//			System.out.println(results.length);
+			sb.append("当前城市是："+results[0].getCurrentCity()+"\n");
+			sb.append("pm25为："+results[0].getPm25()+"\n");
+			sb.append("天气详情\n");
 			
-/*			for(Object object : jsonObject.entrySet()){
-				Map.Entry entry = (Map.Entry) object;  
-				String propertyName = entry.getKey().toString();  
-				String propertyValue = entry.getValue().toString();
-				
-				System.out.println(propertyName+"   "+propertyValue);
-			}*/
-			JSONArray jsonArray = jsonObject.getJSONArray("results");
-			JSONObject jObject = jsonArray.getJSONObject(0);
-			System.out.println(jObject);
-			
-		/*	Results results = jObject.get("");
-			System.out.println(results);
-			Weather_data[] eDatas = results.getWeather_data();
-			for(Weather_data wd:eDatas){
-				System.out.println(wd);
-			}*/
-			
-/*			sb.append("当前城市是："+weatherResult.getResults().getCurrentCity()+"\n");
-			sb.append("pm25为："+weatherResult.getResults().getPm25()+"\n");
-			sb.append("天气详情为：\n");
-			
-			for(Weather_data wd:weatherResult.getResults().getWeather_data()){
+			for(Weather_data wd:results[0].getWeather_data()){
 				sb.append(wd.getDate()+" "+wd.getWeather()+" "+wd.getTemperature()+"\n");
 			}
-			sb.append("\n\n");*/
+			sb.append("\n\n");
+//			System.out.println(sb);
 		}
 		else{
 			
@@ -73,15 +61,17 @@ public class WeatherForcast {
 		
 		if("0".equals(error_code)&&"success".equalsIgnoreCase(jsonObject.getString("status"))){
 			WeatherResult weatherResult = (WeatherResult) JSONObject.toBean(jsonObject,WeatherResult.class);
+			Results[] results = weatherResult.getResults();
+//			System.out.println(results.length);
+			sb.append("当前城市是："+results[0].getCurrentCity()+"\n");
+			sb.append("pm25为："+results[0].getPm25()+"\n");
+			sb.append("天气详情\n");
 			
-			sb.append("当前城市是："+weatherResult.getResults().getCurrentCity()+"\n");
-			sb.append("pm25为："+weatherResult.getResults().getPm25()+"\n");
-			sb.append("天气详情为：\n");
-			
-			for(Weather_data wd:weatherResult.getResults().getWeather_data()){
+			for(Weather_data wd:results[0].getWeather_data()){
 				sb.append(wd.getDate()+" "+wd.getWeather()+" "+wd.getTemperature()+"\n");
 			}
 			sb.append("\n\n");
+//			System.out.println(weatherResult);
 		}
 		else{
 			sb.append("false");
@@ -103,17 +93,14 @@ public class WeatherForcast {
 	
 	
 	
-	
-	
-	
 	/**
 	 * @param args
 	 * @throws UnsupportedEncodingException 
 	 */
 	public static void main(String[] args) throws UnsupportedEncodingException {
 		// TODO Auto-generated method stub
-//		System.out.println(forcastByLocation("30.265915", "119.950241"));
-		System.out.println(forcastByName("缙云"));
+		System.out.println(forcastByLocation("30.265915", "119.950241"));
+//		System.out.println(forcastByName("杭州"));
 	}
 
 }

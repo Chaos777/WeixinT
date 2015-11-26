@@ -4,7 +4,7 @@ public class WeatherResult {
 	private String error;
 	private String status;
 	private String date;
-	private Results results;
+	private Results[] results;
 	public String getError() {
 		return error;
 	}
@@ -23,11 +23,17 @@ public class WeatherResult {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public Results getResults() {
+	
+	public Results[] getResults() {
 		return results;
 	}
-	public void setResults(Results results) {
+	public void setResults(Results[] results) {
 		this.results = results;
+	}
+	@Override
+	public String toString() {
+		return "WeatherResult [error=" + error + ", status=" + status
+				+ ", date=" + date + ", results=" + results + "]";
 	}
 	
 	
