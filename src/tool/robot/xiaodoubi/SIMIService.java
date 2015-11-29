@@ -1,4 +1,4 @@
-package robot.xiaodoubi;
+package tool.robot.xiaodoubi;
 
 import util.WeixinUtil;
 
@@ -11,6 +11,7 @@ public class SIMIService {
 	public static String SimiRun(String content){
 		StringBuffer sb = new StringBuffer();
 		String url = URL+"key="+API+"&chat="+content;
+		System.out.println(url);
 		String result = WeixinUtil.doGetStr_(url);
 		System.out.println(result);
 		return sb.toString();

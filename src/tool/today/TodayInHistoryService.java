@@ -112,6 +112,7 @@ public class TodayInHistoryService {
 		String result = extract(html);
 		
 		result = result.replaceAll("&nbsp;", "");
+		result = result.replaceAll("\\s{1,}", "\n");
 
 		return result;
 	}

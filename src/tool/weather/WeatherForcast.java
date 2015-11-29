@@ -28,13 +28,17 @@ public class WeatherForcast {
 			Results[] results = weatherResult.getResults();
 //			System.out.println(results.length);
 			sb.append("当前城市是："+results[0].getCurrentCity()+"\n");
-			sb.append("pm25为："+results[0].getPm25()+"\n");
+//			System.out.println(results[0].getPm25());
+			if(!results[0].getPm25().trim().equals("")&&null != results[0].getPm25().trim()){
+				sb.append("pm25为："+results[0].getPm25()+"\n");
+			}
+			
 			sb.append("天气详情\n");
 			
 			for(Weather_data wd:results[0].getWeather_data()){
 				sb.append(wd.getDate()+" "+wd.getWeather()+" "+wd.getTemperature()+"\n");
 			}
-			sb.append("\n\n");
+			sb.append("\n");
 //			System.out.println(sb);
 		}
 		else{
@@ -58,13 +62,15 @@ public class WeatherForcast {
 			Results[] results = weatherResult.getResults();
 //			System.out.println(results.length);
 			sb.append("当前城市是："+results[0].getCurrentCity()+"\n");
-			sb.append("pm25为："+results[0].getPm25()+"\n");
+			if(!results[0].getPm25().trim().equals("")&&null != results[0].getPm25().trim()){
+				sb.append("pm25为："+results[0].getPm25()+"\n");
+			}
 			sb.append("天气详情\n");
 			
 			for(Weather_data wd:results[0].getWeather_data()){
 				sb.append(wd.getDate()+" "+wd.getWeather()+" "+wd.getTemperature()+"\n");
 			}
-			sb.append("\n\n");
+			sb.append("\n");
 //			System.out.println(weatherResult);
 		}
 		else{
@@ -93,8 +99,8 @@ public class WeatherForcast {
 	 */
 	public static void main(String[] args) throws UnsupportedEncodingException {
 		// TODO Auto-generated method stub
-		System.out.println(forcastByLocation("30.265915", "119.950241"));
-//		System.out.println(forcastByName("杭州"));
+//		System.out.println(forcastByLocation("30.265915", "119.950241"));
+		System.out.println(forcastByName("缙云"));
 	}
 
 }

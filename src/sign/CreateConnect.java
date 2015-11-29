@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.dom4j.DocumentException;
 
 import servlet.InitServlet;
+import tool.robot.tuling.TulingService;
 import tool.today.TodayInHistoryService;
 import tool.trans.Translate;
 import tool.weather.WeatherForcast;
@@ -68,19 +69,30 @@ public class CreateConnect extends HttpServlet {
 			String Content = map.get("Content"); 
 			
 			
-			String status = (String) InitServlet.mclient.get(FromUserName);
-			if(null == status){
+			String status = "0";
+			
+			if(InitServlet.mclient.keyExists(FromUserName)){
+				status = (String) InitServlet.mclient.get(FromUserName);
+			}
+			else{
 				InitServlet.mclient.set(FromUserName, "0", new Date(20*60*1000));
 			}
 			
-			status = (String) InitServlet.mclient.get(FromUserName);
+//			status = (String) InitServlet.mclient.get(FromUserName);
 			String message = "";
-			
+			String con = "";
+			if(MessageUtil.MESSAGE_VOICE.equals(MsgType)){
+				con = map.get("Recognition");
+				con = con.substring(0, con.indexOf("！"));
+			}
 			if(!"0".equals(status)&&MessageUtil.MESSAGE_TEXT.equals(MsgType)&&"退出模式".equals(Content)){
 				InitServlet.mclient.set(FromUserName, "0", new Date(20*60*1000));
 				message = MessageUtil.initText(ToUserName, FromUserName, "已成功退出特殊模式");
 			}
-			
+			else if(!"0".equals(status)&&"退出模式".equals(con)){
+				InitServlet.mclient.set(FromUserName, "0", new Date(20*60*1000));
+				message = MessageUtil.initText(ToUserName, FromUserName, "已成功退出特殊模式");
+			}			
 			else{
 				if("0".equals(status)){		//正常模式
 					
@@ -162,11 +174,11 @@ public class CreateConnect extends HttpServlet {
 							}
 							else if ("34".equals(key)){
 								InitServlet.mclient.set(FromUserName, "1", new Date(20*60*1000));
-								message = MessageUtil.initText(ToUserName, FromUserName, "成功进入图灵机模式");
+								message = MessageUtil.initText(ToUserName, FromUserName, "成功进入图灵机模式,输入\"退出模式\"退出");
 							}
 							else if ("35".equals(key)){
 								InitServlet.mclient.set(FromUserName, "2", new Date(20*60*1000));
-								message = MessageUtil.initText(ToUserName, FromUserName, "成功进入小黄鸡模式");
+								message = MessageUtil.initText(ToUserName, FromUserName, "成功进入小黄鸡模式,输入\"退出模式\"退出");
 							}
 						}
 						else if(MessageUtil.MESSAGE_VIEW.equals(eventTyep)){		//view事件
@@ -192,10 +204,53 @@ public class CreateConnect extends HttpServlet {
 						}						
 
 					}
+					
+					else if(MessageUtil.MESSAGE_VOICE.equals(MsgType)){		//语音消息
+						String recognition = map.get("Recognition");
+//						System.out.println(recognition);
+						String contemp = recognition.substring(0, recognition.indexOf("！"));
+//						System.out.println(contemp);
+						if(contemp.endsWith("天气")){
+							String city = contemp.replaceAll("天气$", "").trim();
+							if("".equals(city)){
+								String result = "您输入的语音识别结果为："+recognition;
+								message = MessageUtil.initText(ToUserName, FromUserName, result);
+							}
+							else{
+								String result = WeatherForcast.forcastByName(city);
+								if("false".equals(result)){
+									result = "您输入的语音识别结果为："+recognition;
+									message = MessageUtil.initText(ToUserName, FromUserName, result);
+								}
+								else{
+									message = MessageUtil.initText(ToUserName, FromUserName, result);
+								}
+							}
+						}
+						else{
+							String result = "您输入的语音识别结果为："+recognition;
+							message = MessageUtil.initText(ToUserName, FromUserName, result);
+						}
+						
+					}
 				}
 				
 				else if("1".equals(status)){		//图灵机器人模式
-					message = MessageUtil.initText(ToUserName, FromUserName, "图灵模式");
+					if(MessageUtil.MESSAGE_TEXT.equals(MsgType)){		//输入文本
+						String res = TulingService.TulingRun(Content);
+						message = MessageUtil.initText(ToUserName, FromUserName, res);
+					}
+					else if(MessageUtil.MESSAGE_VOICE.equals(MsgType)){	//输入的是语音
+						String recon = map.get("Recognition");
+						String cont = recon.substring(0, recon.indexOf("！"));
+						String res = TulingService.TulingRun(cont);
+						message = MessageUtil.initText(ToUserName, FromUserName, res);						
+					}
+					else{
+						String re = "您当前进入的是机器人聊天模式，只能输入文字，输入\"退出模式\"退出";
+						message = MessageUtil.initText(ToUserName, FromUserName, re);
+					}
+					
 
 				}
 				else if("2".equals(status)) {		//小黄鸡模式
