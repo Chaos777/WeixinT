@@ -248,7 +248,8 @@ public class MessageUtil {
 	public static String initVoiceMessage(String ToUserName,String FromUserName){
 		String message = "";
 		Voice voice = new Voice();
-		voice.setMediaId("74Yl0XM275IGHkJDWlQA6Ao1aLS_pIvDRSLQVsD6kRCtVCzpkwzqAqVIv2Imxi-g");
+//		voice.setMediaId("74Yl0XM275IGHkJDWlQA6Ao1aLS_pIvDRSLQVsD6kRCtVCzpkwzqAqVIv2Imxi-g");		//临时
+		voice.setMediaId("httopkKF6YnVF-D4axZ8A-2AdlG2hjvi_Mwr1v_JUs0");
 		VoiceMessage voiceMessage = new VoiceMessage();
 		voiceMessage.setFromUserName(ToUserName);
 		voiceMessage.setToUserName(FromUserName);
@@ -278,7 +279,7 @@ public class MessageUtil {
 		videoMessage.setFromUserName(ToUserName);
 		videoMessage.setToUserName(FromUserName);
 		videoMessage.setVideo(video);
-		videoMessage.setMsgType(MESSAGE_VOICE);
+		videoMessage.setMsgType(MESSAGE_VIDEO);
 		videoMessage.setCreateTime(new Date().getTime()+"");
 				
 		message = videoMessageToXml(videoMessage);
