@@ -113,7 +113,6 @@ public class CreateConnect extends HttpServlet {
 						}
 						else if("4".equals(Content)){
 							message = MessageUtil.initMusicMessage(ToUserName, FromUserName);  	//音乐消息
-
 						}
 						else if("5".equals(Content)){
 							message = MessageUtil.initVoiceMessage(ToUserName, FromUserName);	//语音消息
@@ -123,6 +122,9 @@ public class CreateConnect extends HttpServlet {
 						}
 						else if("7".equals(Content)){
 							message = MessageUtil.initText(ToUserName, FromUserName, MessageUtil.fourMenu());
+						}
+						else if("8".equals(Content)){
+							message = MessageUtil.initVideoMessage(ToUserName, FromUserName);	//视频消息
 						}
 						else if(Content.startsWith("翻译")){
 							String word = Content.replaceAll("^翻译", "").trim();

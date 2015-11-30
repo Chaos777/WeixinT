@@ -100,7 +100,8 @@ public class MessageUtil {
 		sb.append("4,音乐\n");
 		sb.append("5,语音\n");
 		sb.append("6,翻译\n");
-		sb.append("7,天气\n\n");
+		sb.append("7,天气\n");
+		sb.append("8,视频\n\n");
 		sb.append("回复？调出菜单。");
 		return sb.toString();
 	}
@@ -191,7 +192,8 @@ public class MessageUtil {
 	public static String initImageMessage(String ToUserName,String FromUserName){
 		String message = "";
 		Image image = new Image();
-		image.setMediaId("UxPzF70QF_2_mqqWcg9koBakKSi2w49nre3_Af9_kZCyBgZQALY5zEYDuEdP2nhx");
+//		image.setMediaId("UxPzF70QF_2_mqqWcg9koBakKSi2w49nre3_Af9_kZCyBgZQALY5zEYDuEdP2nhx");
+		image.setMediaId("aE5zWuoxxyu_3kAJPh72tFGRxB_BUta7Ocy5Snhqc2Q");	//永久图片信息ID
 		ImageMessage imageMessage = new ImageMessage();
 		imageMessage.setFromUserName(ToUserName);
 		imageMessage.setToUserName(FromUserName);
@@ -216,7 +218,8 @@ public class MessageUtil {
 	public static String initMusicMessage(String ToUserName,String FromUserName){
 		String message = "";
 		Music music = new Music();
-		music.setThumbMediaId("97yJiFpLckaA2v_Gq_gQDQn7UQxPBskAyk8BQ7AgL0qYNiO1UiKbYKvJnR2iTivw");
+//		music.setThumbMediaId("97yJiFpLckaA2v_Gq_gQDQn7UQxPBskAyk8BQ7AgL0qYNiO1UiKbYKvJnR2iTivw");	//临时
+		music.setThumbMediaId("aE5zWuoxxyu_3kAJPh72tKKlIF92pUVgKtA0SwSuF-M");			//永久
 		music.setTitle("see you again");
 		music.setDescription("fast and fury");
 		music.setMusicUrl("http://chaos.tunnel.qydev.com/WeixinT/resource/Seeyouagain.mp3");
@@ -268,9 +271,9 @@ public class MessageUtil {
 	public static String initVideoMessage(String ToUserName,String FromUserName){
 		String message = "";
 		Video video = new Video();
-		video.setMediaId("");
-		video.setTitle("视频标题");
-		video.setDescription("视频描述内容");
+		video.setMediaId("33Z-2XfcQGh2ce49RUbUw0jVBNXteEbfCIECyIqFsOyhSHboUVftWlmU0YDJjsTx");	//临时
+		video.setTitle("穆里尼奥");
+		video.setDescription("上帝第一我第二！ 细数穆里尼奥十大经典时刻");
 		VideoMessage videoMessage = new VideoMessage();
 		videoMessage.setFromUserName(ToUserName);
 		videoMessage.setToUserName(FromUserName);

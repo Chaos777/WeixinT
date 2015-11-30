@@ -1,16 +1,3 @@
-/accesstoken
-/basemessage
-/imagemessage
-/log4j.properties
-/menu
-/musicmessage
-/newsmessage
-/receive
-/servlet
-/sign
 /test
-/textmessage
-/tool
 /util
-/videomessage
-/voicemessage
+/sign
