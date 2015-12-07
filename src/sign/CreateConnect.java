@@ -233,6 +233,15 @@ public class CreateConnect extends HttpServlet {
 								}
 							}
 						}
+						else if(contemp.startsWith("翻译")){
+							String word = Content.replaceAll("^翻译", "").trim();
+							if("".equals(word)){
+								message = MessageUtil.initText(ToUserName, FromUserName, MessageUtil.threeMenu());
+							}
+							else{
+								message = MessageUtil.initText(ToUserName, FromUserName, Translate.translate(word));
+							}
+						}
 						else{
 							String result = "您输入的语音识别结果为："+recognition;
 							message = MessageUtil.initText(ToUserName, FromUserName, result);
