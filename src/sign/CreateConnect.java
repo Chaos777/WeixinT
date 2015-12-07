@@ -73,6 +73,7 @@ public class CreateConnect extends HttpServlet {
 			
 			if(InitServlet.mclient.keyExists(FromUserName)){
 				status = (String) InitServlet.mclient.get(FromUserName);
+				InitServlet.mclient.set(FromUserName, status, new Date(20*60*1000));
 			}
 			else{
 				InitServlet.mclient.set(FromUserName, "0", new Date(20*60*1000));
