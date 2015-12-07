@@ -403,23 +403,23 @@ public class WeixinUtil {
 		button22.setUrl("http://chaos.tunnel.qydev.com/WeixinT/2048.html");
 		
 		ViewButton button23 = new ViewButton();
-		button23.setName("神经猫");
+		button23.setName("德州扑克");
 		button23.setType("view");
-		button23.setUrl("http://chaos.tunnel.qydev.com/WeixinT/sjm.html");
+		button23.setUrl("http://chaos.tunnel.qydev.com/WeixinT/tex.htm");
 		
 		ViewButton button24 = new ViewButton();
-		button24.setName("神经猫");
+		button24.setName("水果忍者");
 		button24.setType("view");
-		button24.setUrl("http://chaos.tunnel.qydev.com/WeixinT/sjm.html");
+		button24.setUrl("http://chaos.tunnel.qydev.com/WeixinT/fruitNJ.html");
 		
 		ViewButton button25 = new ViewButton();
-		button25.setName("神经猫");
+		button25.setName("打飞机");
 		button25.setType("view");
-		button25.setUrl("http://chaos.tunnel.qydev.com/WeixinT/sjm.html");
+		button25.setUrl("http://chaos.tunnel.qydev.com/WeixinT/plane.html");
 		
 		Button button2 = new Button();
 		button2.setName("游戏");		
-		button2.setSub_button(new Button[]{button21,button22,button23,button24,button25});
+		button2.setSub_button(new Button[]{button21,button22,/*button23,button24,*/button25});
 		
 		ClickButton button31 = new ClickButton();
 		button31.setName("扫码事件");		
@@ -450,7 +450,7 @@ public class WeixinUtil {
 		
 		Button button = new Button();
 		button.setName("菜单");
-		button.setSub_button(new Button[]{button31,button32,button33,button34,button35});
+		button.setSub_button(new Button[]{button31,button32,button33,button34/*,button35*/});
 		
 		menu.setButton(new Button[]{button11,button2,button});
 		

@@ -165,6 +165,9 @@ public class CreateConnect extends HttpServlet {
 						if(MessageUtil.MESSAGE_SUBSCRIBE.equals(eventTyep)){		//关注事件
 							message = MessageUtil.initText(ToUserName, FromUserName, MessageUtil.menuText());
 						}
+						else if(MessageUtil.MESSAGE_UNSUBSCRIBE.equals(eventTyep)){	//取消关注
+							InitServlet.mclient.delete(FromUserName);
+						}
 						else if(MessageUtil.MESSAGE_CLICK.equals(eventTyep)){		//点击事件
 							String key = map.get("EventKey");
 							if("11".equals(key)){
@@ -247,6 +250,16 @@ public class CreateConnect extends HttpServlet {
 						String cont = recon.substring(0, recon.indexOf("！"));
 						String res = TulingService.TulingRun(cont);
 						message = MessageUtil.initText(ToUserName, FromUserName, res);						
+					}
+					else if(MessageUtil.MESSAGE_EVENT.equals(MsgType)){
+						String eventTyep = map.get("Event");
+						if(MessageUtil.MESSAGE_UNSUBSCRIBE.equals(eventTyep)){	//取消关注
+							InitServlet.mclient.delete(FromUserName);
+						}
+						else{
+							String re = "您当前进入的是机器人聊天模式，只能输入文字，输入\"退出模式\"退出";
+							message = MessageUtil.initText(ToUserName, FromUserName, re);
+						}
 					}
 					else{
 						String re = "您当前进入的是机器人聊天模式，只能输入文字，输入\"退出模式\"退出";
