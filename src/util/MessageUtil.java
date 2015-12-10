@@ -125,7 +125,7 @@ public class MessageUtil {
 		sb.append("翻译足球\n");		
 		sb.append("翻译中国足球\n");		
 		sb.append("翻译football\n");	
-		sb.append("翻译さようなら\n\n");
+		/*sb.append("翻译さようなら\n\n");*/
 		sb.append("回复？调出菜单。");
 		return sb.toString();
 	}
@@ -161,7 +161,7 @@ public class MessageUtil {
 			News news = new News();
 			news.setTitle("标题"+i);
 			news.setDescription("描述内容"+i);
-			news.setPicUrl("http://chaos.tunnel.qydev.com/WeixinT/images/000 ("+i+").jpg");
+			news.setPicUrl("http://ww4.sinaimg.cn/bmiddle/6cd6d028jw1eyuv3tcqpyj20go08lwev.jpg");
 			news.setUrl("qq.com");	//跳转的url
 			
 			newsList.add(news);
@@ -221,7 +221,7 @@ public class MessageUtil {
 //		music.setThumbMediaId("97yJiFpLckaA2v_Gq_gQDQn7UQxPBskAyk8BQ7AgL0qYNiO1UiKbYKvJnR2iTivw");	//临时
 		music.setThumbMediaId("aE5zWuoxxyu_3kAJPh72tKKlIF92pUVgKtA0SwSuF-M");			//永久
 		music.setTitle("see you again");
-		music.setDescription("fast and fury");
+		music.setDescription("Fast & Furious");
 		music.setMusicUrl("http://chaos.tunnel.qydev.com/WeixinT/resource/Seeyouagain.mp3");
 		music.setHQMusicUrl("http://chaos.tunnel.qydev.com/WeixinT/resource/Seeyouagain.mp3");
 		
@@ -272,9 +272,12 @@ public class MessageUtil {
 	public static String initVideoMessage(String ToUserName,String FromUserName){
 		String message = "";
 		Video video = new Video();
-		video.setMediaId("33Z-2XfcQGh2ce49RUbUw0jVBNXteEbfCIECyIqFsOyhSHboUVftWlmU0YDJjsTx");	//临时
+/*		video.setMediaId("33Z-2XfcQGh2ce49RUbUw0jVBNXteEbfCIECyIqFsOyhSHboUVftWlmU0YDJjsTx");	//临时
 		video.setTitle("穆里尼奥");
-		video.setDescription("上帝第一我第二！ 细数穆里尼奥十大经典时刻");
+		video.setDescription("上帝第一我第二！ 细数穆里尼奥十大经典时刻");*/
+		video.setMediaId("H7opIbEyVCZi8fuHW6O4qJJBs1ug8Divaf_ZsTI3gItyZlQjs9K0IcrBq72CzFBA");	//lingshi
+		video.setTitle("NBA");
+		video.setDescription("NBA TOP5");
 		VideoMessage videoMessage = new VideoMessage();
 		videoMessage.setFromUserName(ToUserName);
 		videoMessage.setToUserName(FromUserName);
