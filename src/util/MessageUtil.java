@@ -95,8 +95,8 @@ public class MessageUtil {
 		StringBuffer sb = new StringBuffer();
 		sb.append("欢迎关注，请按照菜单提示操作:\n\n");
 		sb.append("1,介绍\n");
-		sb.append("2,自己介绍(图文)\n");
-		sb.append("3,自己介绍(图片)\n");
+		sb.append("2,图文\n");
+		sb.append("3,图片\n");
 		sb.append("4,音乐\n");
 		sb.append("5,语音\n");
 		sb.append("6,翻译\n");
@@ -275,7 +275,7 @@ public class MessageUtil {
 /*		video.setMediaId("33Z-2XfcQGh2ce49RUbUw0jVBNXteEbfCIECyIqFsOyhSHboUVftWlmU0YDJjsTx");	//临时
 		video.setTitle("穆里尼奥");
 		video.setDescription("上帝第一我第二！ 细数穆里尼奥十大经典时刻");*/
-		video.setMediaId("H7opIbEyVCZi8fuHW6O4qJJBs1ug8Divaf_ZsTI3gItyZlQjs9K0IcrBq72CzFBA");	//lingshi
+		video.setMediaId("KQNKCFU-4PFklrzw9p2J8GqHoBMtjBO1rWim3djsn53_Ui76u2tJcp1xUn68inl3");	//lingshi
 		video.setTitle("NBA");
 		video.setDescription("NBA TOP5");
 		VideoMessage videoMessage = new VideoMessage();
