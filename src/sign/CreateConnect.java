@@ -127,6 +127,9 @@ public class CreateConnect extends HttpServlet {
 						else if("8".equals(Content)){
 							message = MessageUtil.initVideoMessage(ToUserName, FromUserName);	//视频消息
 						}
+						else if("9".equals(Content)){
+							message = MessageUtil.initVideoMessagemu(ToUserName, FromUserName);	//mu
+						}
 						else if(Content.startsWith("翻译")){
 							String word = Content.replaceAll("^翻译", "").trim();
 							if("".equals(word)){
@@ -159,6 +162,9 @@ public class CreateConnect extends HttpServlet {
 						else if("?".equals(Content)||"？".equals(Content)){
 							message = MessageUtil.initText(ToUserName, FromUserName, MessageUtil.menuText());	//文字消息
 
+						}
+						else{
+							message = MessageUtil.initText(ToUserName, FromUserName, MessageUtil.menuText());
 						}
 					}
 					else if(MessageUtil.MESSAGE_EVENT.equals(MsgType)){

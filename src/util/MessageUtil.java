@@ -289,6 +289,24 @@ public class MessageUtil {
 		return message;
 	}
 	
+	//
+	public static String initVideoMessagemu (String ToUserName,String FromUserName){
+		String message = "";
+		Video video = new Video();
+		video.setMediaId("0NHO4Pnc2qdcj6ZGErBopbgMz0ZSjAEu-5z6Ctu8yqiZiGDkSs3uea7PAkvWkBlq");	//临时
+		video.setTitle("穆里尼奥");
+		video.setDescription("上帝第一我第二！ 细数穆里尼奥十大经典时刻");
+		VideoMessage videoMessage = new VideoMessage();
+		videoMessage.setFromUserName(ToUserName);
+		videoMessage.setToUserName(FromUserName);
+		videoMessage.setVideo(video);
+		videoMessage.setMsgType(MESSAGE_VIDEO);
+		videoMessage.setCreateTime(new Date().getTime()+"");
+				
+		message = videoMessageToXml(videoMessage);
+		return message;
+	}
+	
 	
 
 }
